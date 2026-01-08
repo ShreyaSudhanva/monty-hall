@@ -19,3 +19,6 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## Live site
+https://shreyasudhanva.github.io/monty-hall/
