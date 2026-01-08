@@ -1,0 +1,333 @@
+.app {
+  min-height: 100vh;
+  padding: 3.5rem clamp(1.5rem, 4vw, 4.5rem) 4.5rem;
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(circle, rgba(255, 183, 77, 0.5), transparent 70%);
+  filter: blur(10px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.glow-top {
+  top: -20vw;
+  right: -10vw;
+}
+
+.glow-bottom {
+  bottom: -28vw;
+  left: -10vw;
+  background: radial-gradient(circle, rgba(88, 119, 255, 0.5), transparent 70%);
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-family: var(--display-font);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  margin: 0.4rem 0 0.6rem;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.game-panel {
+  background: var(--panel);
+  border-radius: 28px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  animation: float-in 0.8s ease;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.status-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink-muted);
+}
+
+.doors {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.door {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.door:disabled {
+  cursor: default;
+}
+
+.door:hover:not(:disabled) {
+  transform: translateY(-6px);
+}
+
+.door-frame {
+  position: relative;
+  padding-top: 140%;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.4));
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 18px 30px rgba(24, 34, 67, 0.12);
+  perspective: 900px;
+}
+
+.door-face,
+.door-reveal {
+  position: absolute;
+  inset: 10px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+}
+
+.door-face {
+  background: linear-gradient(140deg, #1c1c27, #2b2b3c 65%, #1c1c27);
+  color: #fff;
+  transform-origin: left center;
+  transition: transform 0.7s ease;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.door-reveal {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5));
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  color: var(--ink);
+}
+
+.door-number {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.door.selected .door-face {
+  box-shadow: inset 0 0 0 2px rgba(255, 183, 77, 0.7);
+}
+
+.door.host .door-face {
+  box-shadow: inset 0 0 0 2px rgba(104, 140, 255, 0.8);
+}
+
+.door.final .door-face {
+  box-shadow: inset 0 0 0 2px rgba(0, 196, 140, 0.8);
+}
+
+.door.open .door-face {
+  transform: rotateY(-110deg);
+}
+
+.decision-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.8rem;
+}
+
+.decision-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.action {
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action.primary {
+  background: linear-gradient(120deg, #ff9f1c, #ffcc74);
+  color: #1a1202;
+  box-shadow: 0 12px 20px rgba(255, 159, 28, 0.3);
+}
+
+.action.secondary {
+  background: #1f2a44;
+  color: #fdfdfd;
+}
+
+.action.ghost {
+  background: transparent;
+  color: var(--ink-muted);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.action:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.stats-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 28px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.stats-panel h2 {
+  margin-top: 0;
+  margin-bottom: 1.4rem;
+  font-size: 1.6rem;
+}
+
+.stats-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.stat-card {
+  padding: 1.2rem 1.4rem;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(24, 34, 67, 0.08);
+}
+
+.stat-card.highlight {
+  background: linear-gradient(120deg, rgba(255, 159, 28, 0.15), rgba(255, 204, 116, 0.3));
+}
+
+.stat-card h3 {
+  margin: 0 0 0.6rem;
+}
+
+.stat-number {
+  font-family: var(--display-font);
+  font-size: 2.2rem;
+  margin: 0;
+}
+
+.stat-meta {
+  margin: 0.2rem 0 0;
+  color: var(--ink-muted);
+}
+
+.simulation h3 {
+  margin: 0 0 1rem;
+}
+
+.simulation-controls {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.simulation-controls label {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+.simulation-controls input,
+.simulation-controls select {
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(24, 34, 67, 0.15);
+  font-size: 0.95rem;
+}
+
+.simulation-result {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: rgba(24, 34, 67, 0.06);
+  font-weight: 600;
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 2.5rem 1.25rem 3rem;
+  }
+
+  .doors {
+    grid-template-columns: 1fr;
+  }
+
+  .door-frame {
+    padding-top: 90%;
+  }
+}
